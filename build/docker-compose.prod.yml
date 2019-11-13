@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: droptica/php-apache:7.2
+    restart: always
+    volumes:
+      - ../app:/var/www/html
+    environment:
+      - VIRTUAL_HOST=gra.droptica.pl
+      - DOCUMENT_ROOT=/var/www/html/web
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
