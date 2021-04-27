@@ -1,4 +1,5 @@
-version: '3'
+version: '3.6'
+
 services:
   web:
     image: droptica/php-apache:7.2
@@ -6,10 +7,16 @@ services:
     volumes:
       - ../app:/var/www/html
     environment:
-      - VIRTUAL_HOST=gra.droptica.pl
       - DOCUMENT_ROOT=/var/www/html/web
+    labels:
+      - "traefik.frontend.rule=Host:gra.droptica.pl"
+      - "traefik.docker.network=traefik"
+    networks:
+      - traefik
+      - default
 
 networks:
   default:
+  traefik:
     external:
-      name: nginx-proxy
+      name: traefik
